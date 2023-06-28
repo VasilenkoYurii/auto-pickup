@@ -3,38 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "https://VasilenkoYurii.github.io/auto-pickup/",
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.16.3",
-    "@testing-library/react": "^12.1.4",
-    "@testing-library/user-event": "^13.5.0",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.3"
+  "repository": {
+    "type": "git",
+    "url": "https://VasilenkoYurii.github.io/auto-pickup/"
+  },
+  "engines": {
+    "node": "18.x",
+    "npm": "9.x"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint:js": "eslint src/**/*.{js,jsx}"
+    "heroku-prebuild": "npm install -g concurrently && concurrently \"npm run client-install\" \"npm run server-install\"",
+    "heroku-postbuild": "cd client && npm run build",
+    "client-install": "cd client && npm install",
+    "server-install": "cd server && npm install",
+    "start": "node server/server.js"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "concurrently": "^6.5.1"
   }
 }
