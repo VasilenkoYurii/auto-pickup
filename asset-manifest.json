@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/auto-pickup/static/css/main.7acaea2f.css",
+    "main.js": "/auto-pickup/static/js/main.a0941e89.js",
+    "index.html": "/auto-pickup/index.html",
+    "main.7acaea2f.css.map": "/auto-pickup/static/css/main.7acaea2f.css.map",
+    "main.a0941e89.js.map": "/auto-pickup/static/js/main.a0941e89.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7acaea2f.css",
+    "static/js/main.a0941e89.js"
+  ]
+}
