@@ -31,3 +31,36 @@ p {
   padding: 0;
   margin: 0;
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  margin-bottom: 30px;
+}
+
+.pagination a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 30px;
+  width: 30px;
+  margin: 5px;
+
+  border: 1px solid black;
+  border-radius: 2px;
+
+  cursor: pointer;
+
+  transition: all 500ms;
+}
+
+.pagination a:hover {
+  background-color: #22222240;
+}
+
+.active a {
+  background-color: #e6f4ff;
+  pointer-events: none;
+}

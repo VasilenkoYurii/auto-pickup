@@ -2,7 +2,6 @@ const Car = require("../models/car");
 
 const listCars = async () => {
   const data = await Car.find();
-  console.log(data);
   return data;
 };
 
