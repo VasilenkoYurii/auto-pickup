@@ -1,70 +1,155 @@
 const express = require("express");
-// const Joi = require('joi');
 
 const cars = require("../../controllers/cars");
 
-// const { HttpError } = require('../../helpers');
+const { isValidId, validateBody } = require("../../middlewares");
+const { HttpError } = require("../../helpers");
+const { addSchema } = require("../../models/car");
 
 const router = express.Router();
 
-// const addSchema = Joi.object({
-//   name: Joi.string().required(),
-//   email: Joi.string().required(),
-//   phone: Joi.string().required(),
-//   address: Joi.string().required(),
-//   comment: Joi.any(),
-//   price: Joi.number().required(),
-//   orders: Joi.array().required(),
-// });
-
 router.get("/", async (req, res, next) => {
   try {
-    const contactsList = await cars.listCars();
+    const carList = await cars.listCars();
 
-    res.json(contactsList);
+    res.json(carList);
   } catch (error) {
     next(error);
   }
 });
 
-// router.get('/byEmail/:email', async (req, res, next) => {
-//   try {
-//     const { email } = req.params;
-//     const contactsList = await contacts.findContactsByEmail(email);
+router.get("/company/:company", async (req, res, next) => {
+  try {
+    const { company } = req.params;
+    const carList = await cars.findCarByCompany(company);
 
-//     res.json(contactsList);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+    res.json(carList);
+  } catch (error) {
+    next(error);
+  }
+});
 
-// router.get('/byPhone/:phone', async (req, res, next) => {
-//   try {
-//     const { phone } = req.params;
+router.get("/model/:model", async (req, res, next) => {
+  try {
+    const { model } = req.params;
+    const carList = await cars.findCarByModel(model);
 
-//     console.log(phone);
+    res.json(carList);
+  } catch (error) {
+    next(error);
+  }
+});
 
-//     const contactsList = await contacts.findContactsByPhone(phone);
+router.get("/vin/:vin", async (req, res, next) => {
+  try {
+    const { vin } = req.params;
+    const carList = await cars.findCarByVin(vin);
 
-//     res.json(contactsList);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+    res.json(carList);
+  } catch (error) {
+    next(error);
+  }
+});
 
-// router.post('/', async (req, res, next) => {
-//   try {
-//     const { error } = addSchema.validate(req.body);
+router.get("/color/:color", async (req, res, next) => {
+  try {
+    const { color } = req.params;
+    const carList = await cars.findCarByColor(color);
 
-//     if (error) {
-//       throw HttpError(400, error.message);
-//     }
+    res.json(carList);
+  } catch (error) {
+    next(error);
+  }
+});
 
-//     const result = await contacts.addContact(req.body);
-//     res.status(201).json(result);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+router.get("/year/:year", async (req, res, next) => {
+  try {
+    const { year } = req.params;
+    const carList = await cars.findCarByYear(year);
+
+    res.json(carList);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/min_year/:year", async (req, res, next) => {
+  try {
+    const { year } = req.params;
+    const carList = await cars.findCarByMinYear(year);
+
+    res.json(carList);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/max_year/:year", async (req, res, next) => {
+  try {
+    const { year } = req.params;
+    const carList = await cars.findCarByMaxYear(year);
+
+    res.json(carList);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/availability/:availability", async (req, res, next) => {
+  try {
+    const { availability } = req.params;
+    const carList = await cars.findCarByAvailability(availability);
+
+    res.json(carList);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post("/", validateBody(addSchema), async (req, res, next) => {
+  try {
+    const result = await cars.addCar(req.body);
+
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.put(
+  "/:carId",
+  isValidId,
+  validateBody(addSchema),
+  async (req, res, next) => {
+    try {
+      const result = await cars.updateCar(req);
+
+      if (!result) {
+        throw HttpError(404, "Not found");
+      }
+
+      res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.delete("/:carId", isValidId, async (req, res, next) => {
+  try {
+    const { carId } = req.params;
+    const result = await cars.removeCar(carId);
+
+    if (!result) {
+      throw HttpError(404, "Not found");
+    }
+
+    res.json({
+      message: "Delete success",
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;

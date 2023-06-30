@@ -1,10 +1,7 @@
 const { Schema, model } = require("mongoose");
+const Joi = require("joi");
 
 const carSchema = new Schema({
-  id: {
-    type: Number,
-    required: [true, "Set id"],
-  },
   car: {
     type: String,
     required: [true, "Set car"],
@@ -37,4 +34,17 @@ const carSchema = new Schema({
 
 const Car = model("car", carSchema);
 
-module.exports = Car;
+const addSchema = Joi.object({
+  car: Joi.string().required(),
+  car_model: Joi.string().required(),
+  car_color: Joi.string().required(),
+  car_model_year: Joi.number().required(),
+  car_vin: Joi.string().required(),
+  price: Joi.string().required(),
+  availability: Joi.boolean().required(),
+});
+
+module.exports = {
+  addSchema,
+  Car,
+};

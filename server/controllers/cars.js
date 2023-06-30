@@ -1,43 +1,87 @@
-const Car = require("../models/car");
+const { Car } = require("../models/car");
 
 const listCars = async () => {
   const data = await Car.find();
   return data;
 };
 
-// const findContactsByEmail = async (email) => {
-//   const data = await Order.find({ email: email });
-//   return data;
-// };
+const findCarByCompany = async (company) => {
+  const data = await Car.find({
+    car: { $regex: new RegExp(company, "i") },
+  });
+  return data;
+};
 
-// const findContactsByPhone = async (phone) => {
-//   const data = await Order.find({ phone: phone });
-//   return data;
-// };
+const findCarByModel = async (model) => {
+  const data = await Car.find({
+    car_model: { $regex: new RegExp(model, "i") },
+  });
+  return data;
+};
 
-// const addContact = async (body) => {
-//   const currentDate = new Date();
+const findCarByVin = async (vin) => {
+  const data = await Car.find({
+    car_vin: { $regex: new RegExp(vin, "i") },
+  });
+  return data;
+};
 
-//   const day = currentDate.getDate().toString().padStart(2, "0");
-//   const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
-//   const year = currentDate.getFullYear().toString();
+const findCarByColor = async (color) => {
+  const data = await Car.find({
+    car_color: { $regex: new RegExp(color, "i") },
+  });
+  return data;
+};
 
-//   const hours = currentDate.getHours().toString().padStart(2, "0");
-//   const minutes = currentDate.getMinutes().toString().padStart(2, "0");
-//   const seconds = currentDate.getSeconds().toString().padStart(2, "0");
+const findCarByYear = async (year) => {
+  const data = await Car.find({ car_model_year: year });
+  return data;
+};
 
-//   const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+const findCarByMaxYear = async (year) => {
+  const data = await Car.find({ car_model_year: { $lte: year } });
+  return data;
+};
 
-//   const dataWithDate = { ...body, createdAt: formattedDate };
+const findCarByMinYear = async (year) => {
+  const data = await Car.find({ car_model_year: { $gte: year } });
+  return data;
+};
 
-//   const result = await Order.create(dataWithDate);
+const findCarByAvailability = async (availability) => {
+  const data = await Car.find({ availability: availability });
+  return data;
+};
 
-//   return result;
-// };
+const updateCar = async (req) => {
+  const result = await Car.findByIdAndUpdate(req.params.carId, req.body, {
+    new: true,
+  });
+
+  return result;
+};
+
+const addCar = async (body) => {
+  const result = await Car.create({ ...body });
+  return result;
+};
+
+const removeCar = async (carId) => {
+  const result = await Car.findByIdAndRemove(carId);
+  return result;
+};
 
 module.exports = {
   listCars,
-  // findContactsByEmail,
-  // findContactsByPhone,
-  // addContact,
+  findCarByCompany,
+  findCarByModel,
+  findCarByVin,
+  findCarByColor,
+  findCarByYear,
+  findCarByMinYear,
+  findCarByMaxYear,
+  findCarByAvailability,
+  removeCar,
+  addCar,
+  updateCar,
 };

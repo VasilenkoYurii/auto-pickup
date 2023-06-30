@@ -51,7 +51,14 @@ export const Header = ({
         }}
       >
         <Form.Item>
-          <Input placeholder="input placeholder" />
+          <Input
+            placeholder="input placeholder"
+            disabled={
+              options === 'Not Available' || options === 'Available'
+                ? true
+                : false
+            }
+          />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
