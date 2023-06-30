@@ -1,28 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { addCars } from 'redux/operations';
+import { Toaster } from 'react-hot-toast';
+import { allCars } from 'redux/operations';
 import { selectCars } from 'redux/selectors';
 
 import { CarsTable } from './CarsTable/CarsTable';
 import { Header } from './Header/Header';
 import { Modal } from './Modal/Modal';
 
-import cars from './cars.json';
-
 export const App = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [perPage, setPerPage] = useState(20);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setTypeModal] = useState('');
   const [dataForModal, setDataForModal] = useState(null);
 
-  // const carsData = useSelector(selectCars);
+  const carsData = useSelector(selectCars);
+  const memoData = useMemo(() => carsData, [carsData]);
 
-  // console.log(carsData);
-
-  // useEffect(() => {
-  //   dispatch(addCars());
-  // }, []);
+  useEffect(() => {
+    dispatch(allCars());
+  }, [dispatch]);
 
   const openModal = () => {
     setShowModal(true);
@@ -50,7 +48,7 @@ export const App = () => {
         perPage={perPage}
       />
       <CarsTable
-        data={cars}
+        data={memoData}
         perPage={perPage}
         openModal={openModal}
         hendleSettingsModal={hendleSettingsModal}
@@ -62,6 +60,7 @@ export const App = () => {
           dataForModal={dataForModal}
         />
       )}
+      <Toaster position="top-right" reverseOrder={false} />
     </>
   );
 };

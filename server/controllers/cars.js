@@ -54,7 +54,8 @@ const findCarByAvailability = async (availability) => {
 };
 
 const updateCar = async (req) => {
-  const result = await Car.findByIdAndUpdate(req.params.carId, req.body, {
+  const { _id, ...updatedFields } = req.body;
+  const result = await Car.findByIdAndUpdate(req.params.carId, updatedFields, {
     new: true,
   });
 

@@ -1,6 +1,7 @@
 import { Button, Form, Input, Radio, Select } from 'antd';
-import { nanoid } from 'nanoid';
+import { useDispatch } from 'react-redux';
 import { ModalBackground, StyledForm } from './ModalAddCar.styled';
+import { addCar } from 'redux/operations';
 
 const colors = [
   'Yellow',
@@ -25,22 +26,30 @@ const colors = [
 ];
 
 export const ModalAddCar = ({ closeModal }) => {
+  const dispatch = useDispatch();
+
   const onFinish = values => {
     const userCar = {
       ...values,
       price: `$${values.price}`,
-      id: nanoid(),
     };
     console.log('Form values:', userCar);
+
+    dispatch(addCar(userCar));
     closeModal();
   };
 
   const validatePrice = (_, value) => {
-    if (!value) {
-      return Promise.reject('Please enter a price');
-    }
     if (!/^\d+(\.\d{1,2})?$/.test(value)) {
       return Promise.reject('Please enter a valid price');
+    }
+    return Promise.resolve();
+  };
+
+  const validateYear = (_, value) => {
+    const year = parseInt(value, 10);
+    if (isNaN(year) || year < 1950 || year > 2023) {
+      return Promise.reject('Please enter a valid year between 1950 and 2023');
     }
     return Promise.resolve();
   };
@@ -81,7 +90,10 @@ export const ModalAddCar = ({ closeModal }) => {
         <Form.Item
           label="Year"
           name="car_model_year"
-          rules={[{ required: true, message: 'Required area' }]}
+          rules={[
+            { required: true, message: 'Required area' },
+            { validator: validateYear },
+          ]}
         >
           <Input />
         </Form.Item>

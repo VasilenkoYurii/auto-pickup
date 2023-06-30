@@ -5,12 +5,11 @@ import axios from 'axios';
 
 axios.defaults.baseURL = `http://localhost:3001`;
 
-export const addCars = createAsyncThunk(
+export const allCars = createAsyncThunk(
   'user/addCars',
   async (credentials, thunkAPI) => {
     try {
       const response = await axios.get('/api/cars');
-      console.log(response);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -18,76 +17,61 @@ export const addCars = createAsyncThunk(
   }
 );
 
-// export const addOrder = createAsyncThunk(
-//   'user/addOrder',
-//   (credentials, thunkAPI) => {
-//     try {
-//       return credentials;
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   }
-// );
+export const carsByReq = createAsyncThunk(
+  'user/carsByReq',
+  async (credentials, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        `/api/cars/${credentials.options}/${credentials.req}`
+      );
 
-// export const decrementQuantityOrder = createAsyncThunk(
-//   'user/decrementQuantityOrder',
-//   (credentials, thunkAPI) => {
-//     try {
-//       return credentials;
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   }
-// );
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
 
-// export const incrementQuantityOrder = createAsyncThunk(
-//   'user/incrementQuantityOrder',
-//   (credentials, thunkAPI) => {
-//     try {
-//       return credentials;
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   }
-// );
+export const addCar = createAsyncThunk(
+  'user/addCar',
+  async (credentials, thunkAPI) => {
+    try {
+      const response = await axios.post(`/api/cars`, credentials);
 
-// export const makeAnOrder = createAsyncThunk(
-//   'user/makeAnOrder',
-//   async (credentials, thunkAPI) => {
-//     try {
-//       const response = await axios.post('/api/orders', credentials);
+      console.log(response.data);
 
-//       return response.data;
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   }
-// );
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
 
-// export const findOrdersByEmail = createAsyncThunk(
-//   'user/findOrdersByEmail',
-//   async (credentials, thunkAPI) => {
-//     try {
-//       const response = await axios.get(`/api/orders/byEmail/${credentials}`);
+export const editCar = createAsyncThunk(
+  'user/editCar',
+  async (credentials, thunkAPI) => {
+    try {
+      const response = await axios.put(
+        `/api/cars/${credentials._id}`,
+        credentials
+      );
 
-//       return response.data;
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   }
-// );
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
 
-// export const findOrdersByPhone = createAsyncThunk(
-//   'user/findOrdersByPhone',
-//   async (credentials, thunkAPI) => {
-//     try {
-//       const response = await axios.get(`/api/orders/byPhone/${credentials}`);
+export const deleteCar = createAsyncThunk(
+  'user/deleteCar',
+  async (credentials, thunkAPI) => {
+    try {
+      await axios.delete(`/api/cars/${credentials}`);
 
-//       console.log('response.data');
-
-//       return response.data;
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   }
-// );
+      return credentials;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);

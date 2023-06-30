@@ -1,19 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
-// import { toast } from 'react-hot-toast';
+import { allCars, carsByReq, addCar, editCar, deleteCar } from './operations';
 import {
-  addCars,
-  // addOrder,
-  // decrementQuantityOrder,
-  // incrementQuantityOrder,
-  // makeAnOrder,
-  // findOrdersByEmail,
-  // findOrdersByPhone,
-} from './operations';
+  wentWrongNotify,
+  notFindNotify,
+  successFindNotify,
+  successDelite,
+  successEdit,
+  successAdd,
+} from 'helpers/notification';
 
 const initialState = {
   carsData: [],
-  // userOrder: [],
-  // findOrders: [],
 };
 
 export const userSlice = createSlice({
@@ -22,161 +19,49 @@ export const userSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
-      .addCase(addCars.fulfilled, (state, { payload }) => {
+      .addCase(allCars.fulfilled, (state, { payload }) => {
         state.carsData = payload;
       })
-      .addCase(addCars.rejected, () => {
-        console.log('wa');
+      .addCase(allCars.rejected, () => {
+        wentWrongNotify();
+      })
+      .addCase(carsByReq.fulfilled, (state, { payload }) => {
+        if (payload.length === 0) {
+          notFindNotify();
+          return;
+        }
+
+        state.carsData = payload;
+        successFindNotify(payload.length);
+      })
+      .addCase(carsByReq.rejected, () => {
+        wentWrongNotify();
+      })
+      .addCase(addCar.fulfilled, (state, { payload }) => {
+        state.carsData = [payload, ...state.carsData];
+        successAdd();
+      })
+      .addCase(addCar.rejected, () => {
+        wentWrongNotify();
+      })
+      .addCase(editCar.fulfilled, (state, { payload }) => {
+        state.carsData = state.carsData.map(car => {
+          if (car._id === payload._id) {
+            return payload;
+          }
+          return car;
+        });
+        successEdit();
+      })
+      .addCase(editCar.rejected, () => {
+        wentWrongNotify();
+      })
+      .addCase(deleteCar.fulfilled, (state, { payload }) => {
+        state.carsData = state.carsData.filter(car => car._id !== payload);
+        successDelite();
+      })
+      .addCase(deleteCar.rejected, () => {
+        wentWrongNotify();
       });
-    // .addCase(addOrder.fulfilled, (state, { payload }) => {
-    //   const arrOrder = JSON.parse(JSON.stringify(state.userOrder));
-
-    //   if (arrOrder.length !== 0 && arrOrder[0].shop !== payload.shop) {
-    //     toast.error(
-    //       'You can only choose a product from one store at a time',
-    //       {
-    //         style: {
-    //           width: '400px',
-    //           height: '50px',
-    //           borderRadius: '10px',
-    //           fontSize: '20px',
-    //         },
-    //       }
-    //     );
-    //     return;
-    //   }
-
-    //   const updatedOrder = addQuantityToObjectArray([
-    //     ...state.userOrder,
-    //     payload,
-    //   ]);
-    //   state.userOrder = updatedOrder;
-    //   toast.success('Successfully added to shopping cart!', {
-    //     style: {
-    //       width: '300px',
-    //       height: '50px',
-    //       borderRadius: '10px',
-    //       fontSize: '20px',
-    //     },
-    //   });
-    // })
-    // .addCase(decrementQuantityOrder.fulfilled, (state, { payload }) => {
-    //   const updatedOrder = decrementQuantity(
-    //     JSON.parse(JSON.stringify(state.userOrder)),
-    //     payload._id
-    //   );
-    //   state.userOrder = updatedOrder;
-    //   toast.success('Successfully increased quantity!', {
-    //     style: {
-    //       width: '300px',
-    //       height: '50px',
-    //       borderRadius: '10px',
-    //       fontSize: '20px',
-    //     },
-    //   });
-    // })
-    // .addCase(incrementQuantityOrder.fulfilled, (state, { payload }) => {
-    //   const updatedOrder = incrementQuantity(
-    //     JSON.parse(JSON.stringify(state.userOrder)),
-    //     payload._id
-    //   );
-    //   state.userOrder = updatedOrder;
-    //   toast.success('Successfully reduced quantity!', {
-    //     style: {
-    //       width: '300px',
-    //       height: '50px',
-    //       borderRadius: '10px',
-    //       fontSize: '20px',
-    //     },
-    //   });
-    // })
-    // .addCase(makeAnOrder.fulfilled, (state, { payload }) => {
-    //   state.userOrder = [];
-
-    //   toast.success('Order sent successfully!', {
-    //     style: {
-    //       width: '300px',
-    //       height: '50px',
-    //       borderRadius: '10px',
-    //       fontSize: '20px',
-    //     },
-    //   });
-    // })
-    // .addCase(makeAnOrder.rejected, () => {
-    //   toast.error('Something went wrong', {
-    //     style: {
-    //       width: '300px',
-    //       height: '50px',
-    //       borderRadius: '10px',
-    //       fontSize: '20px',
-    //     },
-    //   });
-    // })
-    // .addCase(findOrdersByEmail.fulfilled, (state, { payload }) => {
-    //   state.findOrders = payload;
-    //   if (payload.length === 0) {
-    //     toast.error('There were no orders from this email!', {
-    //       style: {
-    //         width: '300px',
-    //         height: '50px',
-    //         borderRadius: '10px',
-    //         fontSize: '20px',
-    //       },
-    //     });
-    //   } else {
-    //     toast.success('We managed to find your orders!', {
-    //       style: {
-    //         width: '300px',
-    //         height: '50px',
-    //         borderRadius: '10px',
-    //         fontSize: '20px',
-    //       },
-    //     });
-    //   }
-    // })
-    // .addCase(findOrdersByEmail.rejected, () => {
-    //   toast.error('Something went wrong', {
-    //     style: {
-    //       width: '300px',
-    //       height: '50px',
-    //       borderRadius: '10px',
-    //       fontSize: '20px',
-    //     },
-    //   });
-    // })
-    // .addCase(findOrdersByPhone.fulfilled, (state, { payload }) => {
-    //   state.findOrders = payload;
-    //   if (payload.length === 0) {
-    //     toast.error('There were no orders from this phone!', {
-    //       style: {
-    //         width: '300px',
-    //         height: '50px',
-    //         borderRadius: '10px',
-    //         fontSize: '20px',
-    //       },
-    //     });
-    //   } else {
-    //     toast.success('We managed to find your orders!', {
-    //       style: {
-    //         width: '300px',
-    //         height: '50px',
-    //         borderRadius: '10px',
-    //         fontSize: '20px',
-    //       },
-    //     });
-    //   }
-    // })
-    // .addCase(findOrdersByPhone.rejected, () => {
-    //   toast.error('Something went wrong', {
-    //     style: {
-    //       width: '300px',
-    //       height: '50px',
-    //       borderRadius: '10px',
-    //       fontSize: '20px',
-    //     },
-    //   });
-    // });
   },
 });
-
-// findOrdersByPhone

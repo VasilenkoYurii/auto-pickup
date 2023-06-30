@@ -1,12 +1,22 @@
+import { useDispatch } from 'react-redux';
+import { deleteCar } from 'redux/operations';
+
 import {
   MadalBackgroundDelite,
   ModalPrgDelite,
   ModalDeliteButtonYes,
   ModalDeliteButtonNo,
   ButtonContaiber,
-} from './ModalDelite.styled';
+} from './ModalDelete.styled';
 
-export const ModalDelite = ({ closeModal }) => {
+export const ModalDelete = ({ closeModal, dataForModal }) => {
+  const dispatch = useDispatch();
+
+  const handleSubmit = () => {
+    dispatch(deleteCar(dataForModal._id));
+    closeModal();
+  };
+
   return (
     <>
       <MadalBackgroundDelite>
@@ -14,7 +24,9 @@ export const ModalDelite = ({ closeModal }) => {
           Do you want to remove a vehicle from the list?
         </ModalPrgDelite>
         <ButtonContaiber>
-          <ModalDeliteButtonYes>yes</ModalDeliteButtonYes>
+          <ModalDeliteButtonYes onClick={handleSubmit}>
+            yes
+          </ModalDeliteButtonYes>
           <ModalDeliteButtonNo onClick={closeModal}>no</ModalDeliteButtonNo>
         </ButtonContaiber>
       </MadalBackgroundDelite>

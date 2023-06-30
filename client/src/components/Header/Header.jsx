@@ -1,18 +1,25 @@
 import { useState } from 'react';
-import { HeaderContainer, ButtonAddCar } from './Header.styled';
 import { Select, Button, Form, Input } from 'antd';
+import { useDispatch } from 'react-redux';
+import { HeaderContainer, ButtonAddCar } from './Header.styled';
+import { searchHelper } from 'helpers/searchHelper';
 
 export const Header = ({
   hendleChengePerPage,
   hendleSettingsModal,
   perPage,
 }) => {
+  const dispatch = useDispatch();
   const [options, setOptions] = useState('Company');
   const [form] = Form.useForm();
 
   const handleOptionChange = value => {
     console.log(`selected ${value}`);
     setOptions(value);
+  };
+
+  const handleSearch = value => {
+    searchHelper(options, value.req, dispatch);
   };
 
   return (
@@ -43,14 +50,8 @@ export const Header = ({
           },
         ]}
       />
-      <Form
-        form={form}
-        layout="inline"
-        onFinish={() => {
-          console.log('awd');
-        }}
-      >
-        <Form.Item>
+      <Form form={form} layout="inline" onFinish={handleSearch}>
+        <Form.Item name="req">
           <Input
             placeholder="input placeholder"
             disabled={

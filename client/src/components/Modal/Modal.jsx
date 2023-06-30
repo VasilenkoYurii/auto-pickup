@@ -1,6 +1,6 @@
 import { createPortal } from 'react-dom';
 import { Overlay, MainModal } from './Modal.styled';
-import { ModalDelite } from './ModalDelite/ModalDelite';
+import { ModalDelete } from './ModalDelete/ModalDelete';
 import { ModalEdit } from './ModalEdit/ModalEdit';
 import { ModalAddCar } from './ModalAddCar/ModalAddCar';
 
@@ -20,7 +20,7 @@ export const Modal = ({ closeModal, modalType, dataForModal }) => {
           <ModalEdit closeModal={closeModal} dataForModal={dataForModal} />
         )}
         {modalType === 'delite' && (
-          <ModalDelite closeModal={closeModal} dataForModal={dataForModal} />
+          <ModalDelete closeModal={closeModal} dataForModal={dataForModal} />
         )}
         {modalType === 'add' && <ModalAddCar closeModal={closeModal} />}
       </MainModal>

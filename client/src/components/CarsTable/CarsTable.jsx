@@ -54,7 +54,7 @@ export const CarsTable = ({ data, perPage, hendleSettingsModal }) => {
           </Thead>
           <Tbody>
             {filteredDataPaginated.map(car => (
-              <tr key={car.id}>
+              <tr key={car._id}>
                 <td>{car.car}</td>
                 <td>{car.car_model}</td>
                 <td>{car.car_vin}</td>

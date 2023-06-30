@@ -1,5 +1,6 @@
 import { Button, Form, Input, Radio, Select } from 'antd';
-import { nanoid } from 'nanoid';
+import { useDispatch } from 'react-redux';
+import { editCar } from 'redux/operations';
 import { ModalBackground, StyledForm } from './ModalEdit.styled';
 
 const colors = [
@@ -25,13 +26,29 @@ const colors = [
 ];
 
 export const ModalEdit = ({ closeModal, dataForModal }) => {
+  const dispatch = useDispatch();
+
   const onFinish = values => {
     const userCar = {
       ...values,
-      id: nanoid(),
+      _id: dataForModal._id,
+      price: `$${values.price}`,
     };
     console.log('Form values:', userCar);
+    dispatch(editCar(userCar));
     closeModal();
+  };
+
+  const validatePrice = (_, value) => {
+    if (!/^\d+(\.\d{1,2})?$/.test(value)) {
+      return Promise.reject('Please enter a valid price');
+    }
+    return Promise.resolve();
+  };
+
+  const initialData = {
+    ...dataForModal,
+    price: dataForModal.price.substring(1),
   };
 
   return (
@@ -42,22 +59,22 @@ export const ModalEdit = ({ closeModal, dataForModal }) => {
         layout="horizontal"
         style={{ maxWidth: 600 }}
         onFinish={onFinish}
-        initialValues={dataForModal}
+        initialValues={initialData}
       >
         <Form.Item label="Company" name="car">
-          <Input disabled={true} value={dataForModal.car} />
+          <Input disabled={true} />
         </Form.Item>
 
         <Form.Item label="Model" name="car_model">
-          <Input disabled={true} value={dataForModal.car_model} />
+          <Input disabled={true} />
         </Form.Item>
 
         <Form.Item label="VIN" name="car_vin">
-          <Input disabled={true} value={dataForModal.car_vin} />
+          <Input disabled={true} />
         </Form.Item>
 
         <Form.Item label="Year" name="car_model_year">
-          <Input disabled={true} value={dataForModal.car_model_year} />
+          <Input disabled={true} />
         </Form.Item>
 
         <Form.Item label="Color" name="car_color">
@@ -75,9 +92,12 @@ export const ModalEdit = ({ closeModal, dataForModal }) => {
         <Form.Item
           label="Price"
           name="price"
-          rules={[{ required: true, message: 'Required area' }]}
+          rules={[
+            { required: true, message: 'Required area' },
+            { validator: validatePrice },
+          ]}
         >
-          <Input value={dataForModal.price} />
+          <Input />
         </Form.Item>
 
         <Form.Item label="Availability" name="availability">

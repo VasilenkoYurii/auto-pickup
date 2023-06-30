@@ -42,6 +42,7 @@ const addSchema = Joi.object({
   car_vin: Joi.string().required(),
   price: Joi.string().required(),
   availability: Joi.boolean().required(),
+  _id: Joi.string(),
 });
 
 module.exports = {
