@@ -17,7 +17,6 @@ export const Thead = styled.thead`
   th {
     border: 1px solid black;
     border-radius: 2px;
-    padding: 8px;
   }
 
   th:nth-of-type(1) {
@@ -61,5 +60,57 @@ export const Tbody = styled.tbody`
     padding: 10px;
     padding-left: 20px;
     padding-right: 20px;
+  }
+
+  tr td:nth-of-type(8) {
+    padding: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+`;
+
+export const ButtonEdit = styled.button`
+  outline: none;
+
+  font-weight: 400;
+  text-align: center;
+  border: 1px solid transparent;
+  cursor: pointer;
+
+  font-size: 14px;
+  height: 26px;
+  padding: 4px 15px;
+  margin-right: 10px;
+  border-radius: 6px;
+
+  color: #fff;
+  background-color: #1677ff;
+  box-shadow: 0 2px 0 rgba(5, 145, 255, 0.1);
+  transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+  &:hover {
+    background-color: #4096ff;
+  }
+`;
+export const ButtonDelite = styled.button`
+  outline: none;
+
+  font-weight: 400;
+  text-align: center;
+  border: 1px solid transparent;
+  cursor: pointer;
+
+  font-size: 14px;
+  height: 26px;
+  padding: 4px 15px;
+  border-radius: 6px;
+
+  color: #fff;
+  background-color: #1677ff;
+  box-shadow: 0 2px 0 rgba(5, 145, 255, 0.1);
+  transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+  &:hover {
+    background-color: #eaa6a6;
   }
 `;

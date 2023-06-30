@@ -1,8 +1,12 @@
 import { useState } from 'react';
-import { HeaderContainer } from './Header.styled';
+import { HeaderContainer, ButtonAddCar } from './Header.styled';
 import { Select, Button, Form, Input } from 'antd';
 
-export const Header = ({ hendleChengePerPage, perPage }) => {
+export const Header = ({
+  hendleChengePerPage,
+  hendleSettingsModal,
+  perPage,
+}) => {
   const [options, setOptions] = useState('Company');
   const [form] = Form.useForm();
 
@@ -22,21 +26,47 @@ export const Header = ({ hendleChengePerPage, perPage }) => {
           { value: 'Model', label: 'Model' },
           { value: 'VIN', label: 'VIN' },
           { value: 'Color', label: 'Color' },
-          { value: 'Year', label: 'Year' },
-          { value: 'Price', label: 'Price' },
-          { value: 'Availability', label: 'Availability' },
-          { value: 'Actions', label: 'Actions' },
+          {
+            label: 'Year',
+            options: [
+              { label: 'Year', value: 'Year' },
+              { label: 'Min year', value: 'Min year' },
+              { label: 'Max year', value: 'Max year' },
+            ],
+          },
+          {
+            label: 'Availability',
+            options: [
+              { label: 'Available', value: 'Available' },
+              { label: 'Not Available', value: 'Not Available' },
+            ],
+          },
         ]}
       />
-
-      <Form form={form} layout="inline">
+      <Form
+        form={form}
+        layout="inline"
+        onFinish={() => {
+          console.log('awd');
+        }}
+      >
         <Form.Item>
           <Input placeholder="input placeholder" />
         </Form.Item>
         <Form.Item>
-          <Button type="primary">Submit</Button>
+          <Button type="primary" htmlType="submit">
+            Search
+          </Button>
         </Form.Item>
       </Form>
+
+      <ButtonAddCar
+        onClick={() => {
+          hendleSettingsModal('add', null);
+        }}
+      >
+        Add car
+      </ButtonAddCar>
 
       <Select
         defaultValue={perPage}
