@@ -4,7 +4,7 @@ const app = require("./app");
 
 const DB_HOST =
   "mongodb+srv://yurii:MiN2BtmIt9LoYgOV@cluster0.afdhmrr.mongodb.net/db-cars?retryWrites=true&w=majority";
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 mongoose.set("strictQuery", true);
 
