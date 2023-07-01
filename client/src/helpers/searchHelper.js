@@ -1,7 +1,11 @@
 import { toast } from 'react-hot-toast';
-import { carsByReq } from 'redux/operations';
+import { carsByReq, allCars } from 'redux/operations';
 
 export const searchHelper = (options, req, dispatch) => {
+  if (options === 'All') {
+    dispatch(allCars());
+    return;
+  }
   if (options === 'Available') {
     dispatch(carsByReq({ options: 'availability', req: true }));
     return;

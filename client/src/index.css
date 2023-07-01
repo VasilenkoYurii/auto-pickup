@@ -62,3 +62,7 @@ p {
 .ant-form-item-required {
   width: 120px;
 }
+
+.ant-dropdown-placement-bottomLeft {
+  z-index: 10;
+}

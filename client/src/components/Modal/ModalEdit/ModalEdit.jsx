@@ -34,7 +34,6 @@ export const ModalEdit = ({ closeModal, dataForModal }) => {
       _id: dataForModal._id,
       price: `$${values.price}`,
     };
-    console.log('Form values:', userCar);
     dispatch(editCar(userCar));
     closeModal();
   };

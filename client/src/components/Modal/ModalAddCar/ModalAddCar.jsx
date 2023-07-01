@@ -2,28 +2,7 @@ import { Button, Form, Input, Radio, Select } from 'antd';
 import { useDispatch } from 'react-redux';
 import { ModalBackground, StyledForm } from './ModalAddCar.styled';
 import { addCar } from 'redux/operations';
-
-const colors = [
-  'Yellow',
-  'Maroon',
-  'Red',
-  'Violet',
-  'Purple',
-  'Indigo',
-  'Teal',
-  'Pink',
-  'Aquamarine',
-  'Green',
-  'Mauv',
-  'Turquoise',
-  'Blue',
-  'Puce',
-  'Orange',
-  'Khaki',
-  'Fuscia',
-  'Goldenrod',
-  'Crimson',
-];
+import { colors } from 'helpers/colors';
 
 export const ModalAddCar = ({ closeModal }) => {
   const dispatch = useDispatch();
@@ -33,7 +12,6 @@ export const ModalAddCar = ({ closeModal }) => {
       ...values,
       price: `$${values.price}`,
     };
-    console.log('Form values:', userCar);
 
     dispatch(addCar(userCar));
     closeModal();

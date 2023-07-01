@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Dropdown, Space, Divider, Button } from 'antd';
 import {
   Main,
   Thead,
@@ -6,6 +7,7 @@ import {
   Table,
   ButtonEdit,
   ButtonDelite,
+  ContainerForButton,
 } from './CarsTable.styled';
 import { Pagination } from 'components/Pagination/Pagination';
 
@@ -63,20 +65,37 @@ export const CarsTable = ({ data, perPage, hendleSettingsModal }) => {
                 <td>{car.price}</td>
                 <td>{car.availability ? 'Available' : 'Not Available'}</td>
                 <td>
-                  <ButtonEdit
-                    onClick={() => {
-                      hendleSettingsModal('edit', car);
-                    }}
+                  <Dropdown
+                    dropdownRender={menu => (
+                      <div>
+                        <Divider style={{ margin: 0 }} />
+                        <ContainerForButton style={{ padding: 8 }}>
+                          <ButtonEdit
+                            onClick={() => {
+                              hendleSettingsModal('edit', car);
+                            }}
+                          >
+                            Edit
+                          </ButtonEdit>
+                          <ButtonDelite
+                            onClick={() => {
+                              hendleSettingsModal('delite', car);
+                            }}
+                          >
+                            Delite
+                          </ButtonDelite>
+                        </ContainerForButton>
+                      </div>
+                    )}
                   >
-                    Edit
-                  </ButtonEdit>
-                  <ButtonDelite
-                    onClick={() => {
-                      hendleSettingsModal('delite', car);
-                    }}
-                  >
-                    Delite
-                  </ButtonDelite>
+                    <Button
+                      onClick={e => {
+                        e.preventDefault();
+                      }}
+                    >
+                      <Space>Action</Space>
+                    </Button>
+                  </Dropdown>
                 </td>
               </tr>
             ))}

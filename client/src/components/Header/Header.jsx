@@ -10,11 +10,10 @@ export const Header = ({
   perPage,
 }) => {
   const dispatch = useDispatch();
-  const [options, setOptions] = useState('Company');
+  const [options, setOptions] = useState('All');
   const [form] = Form.useForm();
 
   const handleOptionChange = value => {
-    console.log(`selected ${value}`);
     setOptions(value);
   };
 
@@ -29,6 +28,7 @@ export const Header = ({
         style={{ width: 120 }}
         onChange={handleOptionChange}
         options={[
+          { value: 'All', label: 'All' },
           { value: 'Company', label: 'Company' },
           { value: 'Model', label: 'Model' },
           { value: 'VIN', label: 'VIN' },
@@ -55,7 +55,9 @@ export const Header = ({
           <Input
             placeholder="input placeholder"
             disabled={
-              options === 'Not Available' || options === 'Available'
+              options === 'Not Available' ||
+              options === 'Available' ||
+              options === 'All'
                 ? true
                 : false
             }

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Space } from 'antd';
 
 export const Main = styled.main`
   display: flex;
@@ -79,6 +80,7 @@ export const ButtonEdit = styled.button`
 
   font-size: 14px;
   height: 26px;
+  width: 100%;
   padding: 4px 15px;
   margin-right: 10px;
   border-radius: 6px;
@@ -102,6 +104,7 @@ export const ButtonDelite = styled.button`
 
   font-size: 14px;
   height: 26px;
+  width: 100%;
   padding: 4px 15px;
   border-radius: 6px;
 
@@ -113,4 +116,21 @@ export const ButtonDelite = styled.button`
   &:hover {
     background-color: #eaa6a6;
   }
+`;
+
+export const ContainerForButton = styled(Space)`
+  background-color: #fff;
+
+  gap: 8px;
+  position: absolute;
+  width: 70px;
+  left: -8px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 4px;
 `;
