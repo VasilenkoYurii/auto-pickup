@@ -22,7 +22,7 @@ export const MainModal = styled.div`
 
 export const MadalBackground = styled.div`
   width: 400px;
-  height: 600px;
+  height: 700px;
 
   background-color: #fff;
 `;

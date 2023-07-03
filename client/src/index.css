@@ -60,7 +60,11 @@ p {
 }
 
 .ant-form-item-required {
-  width: 120px;
+  width: 100%;
+}
+
+.ant-form-item-label label {
+  width: 100%;
 }
 
 .ant-dropdown-placement-bottomLeft {

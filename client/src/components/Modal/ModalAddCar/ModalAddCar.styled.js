@@ -1,35 +1,33 @@
 import styled from '@emotion/styled';
-import { Form, Input } from 'antd';
+import { Form, Button } from 'antd';
 
 export const ModalBackground = styled.div`
   width: 400px;
-  height: 450px;
-  padding-top: 50px;
-  padding-left: 70px;
-
-  /* display: flex;
-
-  align-items: center;
-  justify-content: center; */
+  height: 580px;
 
   background-color: #fff;
 `;
 
-export const StyledForm = styled(Form)`
-  /* width: 350px; */
+export const StyledForm = styled(Form)``;
 
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
-`;
-
-export const StyledFormItem = styled(Form.Item)`
+export const FormContainer = styled.div`
   width: 100%;
 
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 `;
 
-export const StyledFormInput = styled(Input)`
-  width: 100%;
+export const ModalTitle = styled.h3`
+  text-align: center;
+  text-transform: uppercase;
+
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin: 0;
+`;
+
+export const SubmitButton = styled(Button)`
+  width: 308px;
 `;

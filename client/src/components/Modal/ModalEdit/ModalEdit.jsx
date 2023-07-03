@@ -1,7 +1,13 @@
 import { Button, Form, Input, Radio, Select } from 'antd';
 import { useDispatch } from 'react-redux';
 import { editCar } from 'redux/operations';
-import { ModalBackground, StyledForm } from './ModalEdit.styled';
+import {
+  ModalBackground,
+  StyledForm,
+  FormContainer,
+  ModalTitle,
+  SubmitButton,
+} from './ModalEdit.styled';
 
 const colors = [
   'Yellow',
@@ -52,66 +58,70 @@ export const ModalEdit = ({ closeModal, dataForModal }) => {
 
   return (
     <ModalBackground>
-      <StyledForm
-        labelCol={{ span: 4 }}
-        wrapperCol={{ span: 14 }}
-        layout="horizontal"
-        style={{ maxWidth: 600 }}
-        onFinish={onFinish}
-        initialValues={initialData}
-      >
-        <Form.Item label="Company" name="car">
-          <Input disabled={true} />
-        </Form.Item>
+      <ModalTitle>Edit car</ModalTitle>
 
-        <Form.Item label="Model" name="car_model">
-          <Input disabled={true} />
-        </Form.Item>
-
-        <Form.Item label="VIN" name="car_vin">
-          <Input disabled={true} />
-        </Form.Item>
-
-        <Form.Item label="Year" name="car_model_year">
-          <Input disabled={true} />
-        </Form.Item>
-
-        <Form.Item label="Color" name="car_color">
-          <Select>
-            {colors.map(color => {
-              return (
-                <Select.Option value={color} key={color}>
-                  {color}
-                </Select.Option>
-              );
-            })}
-          </Select>
-        </Form.Item>
-
-        <Form.Item
-          label="Price"
-          name="price"
-          rules={[
-            { required: true, message: 'Required area' },
-            { validator: validatePrice },
-          ]}
+      <FormContainer>
+        <StyledForm
+          labelCol={{ span: 10 }}
+          wrapperCol={{ span: 14 }}
+          layout="horizontal"
+          style={{ maxWidth: 600 }}
+          onFinish={onFinish}
+          initialValues={initialData}
         >
-          <Input />
-        </Form.Item>
+          <Form.Item label="Company" name="car">
+            <Input disabled={true} />
+          </Form.Item>
 
-        <Form.Item label="Availability" name="availability">
-          <Radio.Group>
-            <Radio value={false}>Not Available</Radio>
-            <Radio value={true}>Available</Radio>
-          </Radio.Group>
-        </Form.Item>
+          <Form.Item label="Model" name="car_model">
+            <Input disabled={true} />
+          </Form.Item>
 
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
-      </StyledForm>
+          <Form.Item label="VIN" name="car_vin">
+            <Input disabled={true} />
+          </Form.Item>
+
+          <Form.Item label="Year" name="car_model_year">
+            <Input disabled={true} />
+          </Form.Item>
+
+          <Form.Item label="Color" name="car_color">
+            <Select>
+              {colors.map(color => {
+                return (
+                  <Select.Option value={color} key={color}>
+                    {color}
+                  </Select.Option>
+                );
+              })}
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            label="Price"
+            name="price"
+            rules={[
+              { required: true, message: 'Required area' },
+              { validator: validatePrice },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item label="Availability" name="availability">
+            <Radio.Group>
+              <Radio value={false}>Not Available</Radio>
+              <Radio value={true}>Available</Radio>
+            </Radio.Group>
+          </Form.Item>
+
+          <Form.Item>
+            <SubmitButton type="primary" htmlType="submit">
+              Submit
+            </SubmitButton>
+          </Form.Item>
+        </StyledForm>
+      </FormContainer>
     </ModalBackground>
   );
 };
