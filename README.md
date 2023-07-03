@@ -2,7 +2,7 @@
 
 Auto Pickup is a web application that allows users to search for cars based on various criteria and perform local pagination. It also provides functionality for managing the car list, including adding, editing, and deleting cars.
 
----
+You can open the project from the `https://auto-pickup-6a0093f23d1a.herokuapp.com/` link, or run it locally using the instructions below.
 
 ### Technologies Used
 
@@ -33,7 +33,7 @@ Auto Pickup is a web application that allows users to search for cars based on v
 - Install Node.js and npm (Node Package Manager) if you haven't already.
 - Navigate to the project directory `cd client`.
 - Run `npm install` to install the project dependencies.
-- You need to go to `redux/operations.js` and change axios.defaults.baseURL = ${window.location.origin} to axios.defaults.baseURL = `http://localhost:3001`.
+- You need to go to `redux/operations.js` and change `axios.defaults.baseURL = ${window.location.origin}` to `axios.defaults.baseURL = "http://localhost:3001"`.
 - Run `npm start` to start the development server.
 - Open your browser and go to `http://localhost:3000` to access the application.
 
