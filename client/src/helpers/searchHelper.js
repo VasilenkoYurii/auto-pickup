@@ -15,7 +15,7 @@ export const searchHelper = (options, req, dispatch) => {
     return;
   }
 
-  if (req === undefined) {
+  if (req === undefined || req.trim() === '') {
     toast.error('Input must be filled', {
       style: {
         width: '300px',
@@ -30,31 +30,31 @@ export const searchHelper = (options, req, dispatch) => {
 
   switch (options) {
     case 'Company':
-      dispatch(carsByReq({ options: 'company', req }));
+      dispatch(carsByReq({ options: 'company', req: req.trim() }));
       break;
 
     case 'Model':
-      dispatch(carsByReq({ options: 'model', req }));
+      dispatch(carsByReq({ options: 'model', req: req.trim() }));
       break;
 
     case 'VIN':
-      dispatch(carsByReq({ options: 'vin', req }));
+      dispatch(carsByReq({ options: 'vin', req: req.trim() }));
       break;
 
     case 'Color':
-      dispatch(carsByReq({ options: 'color', req }));
+      dispatch(carsByReq({ options: 'color', req: req.trim() }));
       break;
 
     case 'Year':
-      dispatch(carsByReq({ options: 'year', req }));
+      dispatch(carsByReq({ options: 'year', req: req.trim() }));
       break;
 
     case 'Min year':
-      dispatch(carsByReq({ options: 'min_year', req }));
+      dispatch(carsByReq({ options: 'min_year', req: req.trim() }));
       break;
 
     case 'Max year':
-      dispatch(carsByReq({ options: 'max_year', req }));
+      dispatch(carsByReq({ options: 'max_year', req: req.trim() }));
       break;
 
     default:
